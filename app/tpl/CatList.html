@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="searchString">
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="234">
+        <li ng-repeat="article in CatList | searchFor:searchString" class="thumbnail">
+		{{article.id}} / {{article.category_id}} / 
+          <a href="#/article/{{article.id}}">{{article.name}}</a>
+          <p>{{article.callories}}</p>
+		  
+        </li>
+      </ul>
+{{data}}
+	  
+    </div>
+  </div>
+</div>
