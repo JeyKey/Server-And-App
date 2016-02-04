@@ -3,11 +3,14 @@
 var menucat = angular.module('menucat', [
  'ngRoute',
  'ArticleControllers',
- 'ngCookies'
+ 'ngCookies',
+ 'ngImageCache'
 
 ]);
-  menucat.config(['$routeProvider', 
-  function($routeProvider) {
+  menucat.config(['$routeProvider', 'ImageCacheProvider',
+  function($routeProvider, ImageCacheProvider) {
+	ImageCacheProvider.setStorage(window.localStorage);
+	
     $routeProvider.
         when('/auht', {
           templateUrl: 'tpl/auht.html',
@@ -17,7 +20,7 @@ var menucat = angular.module('menucat', [
           templateUrl: 'tpl/user.html',
           controller: 'Login'
 		  }).
-		when('/auht/cookie/:uid/:name', {
+		when('/auht/cookie/:uid', {
 		  templateUrl: 'tpl/OfferList.html',
           controller: 'cookie'
 		  }).

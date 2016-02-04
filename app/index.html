@@ -25,7 +25,7 @@
           </div>
 
           <div class="col-md-8 atm">
-            <img class="logo" src="img/logo.png" alt="logo" />
+			<ui-image class="logo" data-src="http://localhost/tpl/img/logo.png" data-title="logo"></ui-image>
           </div>
 
           <div class="col-md-2 atm atm_right">
@@ -41,7 +41,7 @@
           <div class="row">
             <div class="frame" ng-controller="GetCatCtrl" >
               <ul class="nav navbar-nav slide">
-                <li ng-repeat="cat in Cats" ><a class="hvr-s" href="#/category/{{cat.id}}"><img ng-src="img/{{cat.icon}}"> <p>{{cat.title}}</p></a></li>
+                <li ng-repeat="cat in Cats" ><a class="hvr-s" href="#/category/{{cat.id}}"><img ng-src="{{cat.icon}}"> <p>{{cat.title}}</p></a></li>
               </ul>
             </div>
           </div>
@@ -54,8 +54,8 @@
   </div>
 
   <footer class="navbar-fixed-bottom">
-    <div class="footer-bg text-center" ng-controller="table">
-      <a href="#">WWW.SMARTAP.KZ<p>ваш столик # {{table}}</p></a>
+    <div class="footer-bg text-center">
+      <a href="#">WWW.SMARTAP.KZ</a>
 	  
     </div>
   </footer>
@@ -88,10 +88,12 @@
 <div id="mask" class="mask"></div>
 <!-- JS -->
 <script src="js/lib/menu-basket.js"></script>
-<!-- Angular JS -->
+<!-- Angular JS Lib-->
 <script src="js/lib/angular.min.js"></script>
 <script src="js/lib/angular-cookies.min.js"></script>
 <script src="js/lib/angular-route.min.js"></script>
+<script src="js/lib/ng-image-cache.js"></script>
+<!-- Angular JS Controller-->
 <script src="js/controll/app.js"></script>
 <script src="js/controll/controller.js"></script>
 <script src="js/controll/servies.js"></script>

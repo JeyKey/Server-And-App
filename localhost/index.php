@@ -10,8 +10,17 @@ use Dflydev\FigCookies\SetCookie;
 
 $app = new \Slim\App;
 
-$app->get('/', function () {
-    echo 'Home - Client RESTfull API';
+$app->get('/', function ($request, $response) {
+    $app = $response -> withStatus (200)
+					 -> withHeader('Content-Type','application/json');
+	
+		$callback = $request->getParam('callback');
+	if ($callback) {
+		echo $_GET['callback'] . '('.json_encode($result, JSON_UNESCAPED_UNICODE).')';
+	}else{
+		echo json_encode($result, JSON_UNESCAPED_UNICODE);
+	}
+	return $app;
 });
 
 

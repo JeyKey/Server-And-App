@@ -55,6 +55,15 @@ ArticleControllers.controller('CatListCtrl', ['$scope', '$routeParams', '$http',
 ArticleControllers.controller('Auht', ['$scope', '$routeParams', '$http', '$location',
   function($scope, $routeParams, $http, $location) {
 	
+	$http.jsonp('http://localhost/?callback=JSON_CALLBACK').
+	success(function(data) {
+       $scope.data = data || "Сервер доступен";
+   }).
+   error(function(data, status) {
+        $scope.data = data || "Нет соединения с сервером";
+		
+    });
+	
 	$scope.getItem = function() {
 		  
     $http.jsonp('http://localhost/auht?pin=' + $scope.pin + '&token=a3ca5cf04464775a3ca0e1d2944d5f43875b2507&callback=JSON_CALLBACK').
