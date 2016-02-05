@@ -1,0 +1,32 @@
+    <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-2 atm atm_left">
+              <a href="#"><img src="img/bullhorn.svg">
+                <p>ПОЗВАТЬ ОФИЦИАНТА</p>
+              </a>
+          </div>
+
+          <div class="col-md-8 atm">
+			<ui-image class="logo" data-src="http://localhost/tpl/img/logo.png" data-title="logo"></ui-image>
+          </div>
+
+          <div class="col-md-2 atm atm_right">
+            <a id="btn_basket_right" href="#"><span class="badge">13</span><img src="img/basket.svg">
+              <p>ВАШ ЗАКАЗ:</p><b>19 856 <sup>тг.</sup></b>
+            </a>
+          </div>
+
+        </div>
+    </div>
+    <nav>
+      <div class="container-fluid">
+          <div class="row">
+            <div class="frame" ng-controller="GetCatCtrl" >
+              <ul class="nav navbar-nav slide">
+                <li ng-repeat="cat in Cats" ><a class="hvr-s" href="#/category/{{cat.id}}"><img ng-src="{{cat.icon}}"> <p>{{cat.title}}</p></a></li>
+              </ul>
+            </div>
+          </div>
+      </div>
+    </nav>

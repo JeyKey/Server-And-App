@@ -13,7 +13,7 @@ $app = new \Slim\App;
 $app->get('/', function ($request, $response) {
     $app = $response -> withStatus (200)
 					 -> withHeader('Content-Type','application/json');
-	
+
 		$callback = $request->getParam('callback');
 	if ($callback) {
 		echo $_GET['callback'] . '('.json_encode($result, JSON_UNESCAPED_UNICODE).')';
@@ -26,20 +26,20 @@ $app->get('/', function ($request, $response) {
 
 // Серверная часть: Client RESTfull API
 // Дата: 02.02.2016
-// 
+//
 
 // Авторизация для приложения (столика)
 $app->get('/auht', function($request, $response) use( $db){
-	
+
 	$code = $request->getParam('pin');
 	$secret = $request->getParam('token');
 	$reqdb = $db->app_auht()->where('pin', $code);
 	$data = $reqdb->fetch();
 	$result = array();
 	$token = $secret == $data['token'];
-	
+
 	if ($token && $data) {
-		
+
 		$app = $response -> withStatus (200)
 						 -> withHeader('Content-Type','application/json');
 
@@ -49,51 +49,53 @@ $app->get('/auht', function($request, $response) use( $db){
             'name' => $login['name']
         );
     };
-		
-		// SetCookie("uid", $login['uid'] ,time()+3600); 
-		
+
+		// SetCookie("uid", $login['uid'] ,time()+3600);
+
 	}else{
-		
+
 		return $app = $response -> withStatus (200);
 
 	}
-	
+
 	$callback = $request->getParam('callback');
 	if ($callback) {
 		echo $_GET['callback'] . '('.json_encode($result, JSON_UNESCAPED_UNICODE).')';
 	}else{
 		echo json_encode($result, JSON_UNESCAPED_UNICODE);
 	}
-	
+
 	return $app;
-	
+
 });
-
-
-
 
 // Показать спец. предложения
 $app->get('/offer', function($request, $response) use( $db){
 
+
     $api = array();
     foreach ($db->app_offer() as $data) {
+		foreach ($db->app_category()->where('id', $data['category']) as $datacat) {
         $api[]  = array(
             'id' => $data['id'],
             'name' => $data['name'],
-            'category' => $data['category'],
+			'image' => $data['image'],
+			'catid' => $data['category'],
+            'category' => $datacat['title'],
 			'text' => $data['text'],
             'price' => $data['price'],
             'old_price' => $data['old_price']
         );
-    };
+    }};
+
 		$callback = $request->getParam('callback');
-		
+
 	if ($callback) {
 		echo $_GET['callback'] . '('.json_encode($api, JSON_UNESCAPED_UNICODE).')';
 	}else{
 		echo json_encode($api, JSON_UNESCAPED_UNICODE);
 	}
-	
+
 	return $json= $response->withHeader('Content-Type','application/json');
 
 });
@@ -111,13 +113,13 @@ $app->get('/category', function($request, $response) use( $db){
         );
     }
 		$callback = $request->getParam('callback');
-		
+
 	if ($callback) {
 		echo $_GET['callback'] . '('.json_encode($api, JSON_UNESCAPED_UNICODE).')';
 	}else{
 		echo json_encode($api, JSON_UNESCAPED_UNICODE);
 	}
-	
+
 	return $json= $response->withHeader('Content-Type','application/json');
 
 });
@@ -125,14 +127,14 @@ $app->get('/category', function($request, $response) use( $db){
 
 // Показать все блюда категории
 $app->get('/category/{id}', function($request, $response, $args) use( $db){
-	
+
 	$reqdb = $db->app_articles()->where('category_id', $args[id]);
 
 	if ($reqdb->fetch()) {
-		
+
 		foreach ($db->app_category()->where('id', $args[id]) as $datacat) {
 		$api = array();
-		
+
 			foreach ($db->app_articles()->where('category_id', $args[id]) as $data) {
 			$api[]  = array(
 				'id' => $data['id'],
@@ -142,13 +144,13 @@ $app->get('/category/{id}', function($request, $response, $args) use( $db){
 				'times' => $data['times'],
 				'callories' => $data['callories'],
 				'likes' => $data['likes'],
-				'ingredient' => $data['ingredient'],           
+				'ingredient' => $data['ingredient'],
 				'price' => $data['price'],
 				'old_price' => $data['old_price'],
 				'id_comb' => $data['id_comb']
 
 			);}
-		}	
+		}
 	} else {
 		return $json = $response -> withStatus (200);
 	}
@@ -166,7 +168,7 @@ $app->get('/category/{id}', function($request, $response, $args) use( $db){
 
 // Показать одно блюдо
 $app->get('/article/{id}', function($request, $response, $args) use ($db) {
-	
+
  $reqdb = $db->app_articles()->where('id', $args[id]);
 	$api = array();
     if($data = $reqdb->fetch()){
@@ -177,7 +179,7 @@ $app->get('/article/{id}', function($request, $response, $args) use ($db) {
             'times' => $data['times'],
 			'callories' => $data['callories'],
             'likes' => $data['likes'],
-            'ingredient' => $data['ingredient'],           
+            'ingredient' => $data['ingredient'],
 			'price' => $data['price'],
 			'old_price' => $data['old_price'],
             'id_comb' => $data['id_comb']
@@ -191,13 +193,13 @@ $app->get('/article/{id}', function($request, $response, $args) use ($db) {
     }
 
 		$callback = $request->getParam('callback');
-		
+
 	if ($callback) {
 		echo $_GET['callback'] . '('.json_encode($api, JSON_UNESCAPED_UNICODE).')';
 	}else{
 		echo json_encode($api, JSON_UNESCAPED_UNICODE);
 	}
-	
+
 	return $json= $response->withHeader('Content-Type','application/json');
 
 });
@@ -206,7 +208,7 @@ $app->get('/article/{id}', function($request, $response, $args) use ($db) {
 
 // Серверная часть: Admin RESTfull API
 // Дата: 02.02.2016
-// 
+//
 
 // Добавить блюдо
 $app->post('/articles/add', function(ServerRequestInterface $request, ResponseInterface $response ) use($db){

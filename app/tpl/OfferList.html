@@ -1,17 +1,21 @@
-<div class="container-fluid">
-  <div class="row">
 
-    <div class="col-md-10">
-      <!--Body content-->
+<div class="container-fluid"><div class="row"><div class="col-md-12"><div class="row">
 
-      <ul class="phones">
-        <li ng-repeat="Offer in Offers" class="thumbnail">
-		{{Offer.id}} / {{Offer.name}} / {{Offer.category}} / {{Offer.text}} / {{Offer.price}} / 
-          
-          <p>{{Offer.old_price}}</p>
-        </li>
-      </ul>
+	<slick  autoplay="true" autoplaySpeed="800" fade="false" speed="1500" init-onload=true data="Offers" class="offer">
 
-    </div>
-  </div>
-</div>
+		<div ng-repeat="Offer in Offers" class="image" style="background-image: url({{Offer.image}})">
+			<div class="semiopacity"></div>
+				<div class="col-md-4 col-md-offset-4 mtop60">
+					<span class="label label-{{Offer.catid}}">{{Offer.category}}</span>
+					<h1>{{Offer.name}}</h1>
+			<hr><p>{{Offer.text}}</p>
+					<div class="price"><small>{{Offer.old_price}} тг.</small><br> {{Offer.price}} <sup>тг.</sup></div>
+					<a href="#" class="btn btn-default">Заказать</a>
+			</div>
+		</div>
+
+	</slick>
+
+
+
+</div></div></div></div>

@@ -5,12 +5,11 @@ var menucat = angular.module('menucat', [
  'ArticleControllers',
  'ngCookies',
  'ngImageCache'
-
 ]);
   menucat.config(['$routeProvider', 'ImageCacheProvider',
   function($routeProvider, ImageCacheProvider) {
 	ImageCacheProvider.setStorage(window.localStorage);
-	
+
     $routeProvider.
         when('/auht', {
           templateUrl: 'tpl/auht.html',
@@ -29,11 +28,11 @@ var menucat = angular.module('menucat', [
           controller: 'OfferListCtrl'
 		  }).
 		  when('/category/:CatId', {
-		  templateUrl: 'tpl/CatList.html',  
+		  templateUrl: 'tpl/CatList.html',
           controller: 'CatListCtrl'
         }).
         when('/article/:ArticleId', {
-          templateUrl: 'tpl/ArticleDetail.html', 
+          templateUrl: 'tpl/ArticleDetail.html',
           controller: 'ArticleDetailCtrl'
         }).
         otherwise({
