@@ -1,27 +1,28 @@
 'use strict';
 
-var menucat = angular.module('menucat', [
+var AppCtrl = angular.module('AppCtrl', [
  'ngRoute',
+ 'ngImageCache',
  'ArticleControllers',
- 'ngCookies',
- 'ngImageCache'
+ 'AuhtControllers',
+ 'CatControllers',
+ 'FooterControllers'
 ]);
-  menucat.config(['$routeProvider', 'ImageCacheProvider',
+
+AppCtrl.run(function($rootScope, $location) {
+  $rootScope.$on('$routeChangeSuccess', function() {
+      $rootScope.showSection = $location.path() !== "/";
+  });
+});
+
+  AppCtrl.config(['$routeProvider', 'ImageCacheProvider',
   function($routeProvider, ImageCacheProvider) {
 	ImageCacheProvider.setStorage(window.localStorage);
 
     $routeProvider.
-        when('/auht', {
+        when('/', {
           templateUrl: 'tpl/auht.html',
 		  controller: 'Auht'
-		  }).
-        when('/auht/:Pin', {
-          templateUrl: 'tpl/user.html',
-          controller: 'Login'
-		  }).
-		when('/auht/cookie/:uid', {
-		  templateUrl: 'tpl/OfferList.html',
-          controller: 'cookie'
 		  }).
         when('/offer', {
           templateUrl: 'tpl/OfferList.html',
@@ -34,8 +35,5 @@ var menucat = angular.module('menucat', [
         when('/article/:ArticleId', {
           templateUrl: 'tpl/ArticleDetail.html',
           controller: 'ArticleDetailCtrl'
-        }).
-        otherwise({
-          redirectTo: '/auht'
         });
   }]);

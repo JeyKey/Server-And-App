@@ -88,6 +88,35 @@ a.label:focus {
 .label-5 {background-color: #0ac2d8;}
 .label-6 {background-color: #ff460c;}
 
+.btn {
+  display: inline-block;
+  padding: 8px 45px;
+  margin-bottom: 0;
+  font-family: "Roboto Slab", serif;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 25px;
+}
+
+.btn-default {
+  color: #fff;
+  background-color: #81bb21;
+  border-bottom: 4px solid #74a81e;
+}
+
 /* END UI	*/
 /* HEADING	*/
 
@@ -219,7 +248,7 @@ nav {
 	font-weight: 600;
 	color: #fff;
 	line-height: 1;
-	margin: 20px 0;
+	margin: 20px 0 40px;
 }
 
 .price sup { font-size: 26px;}
@@ -243,6 +272,7 @@ nav {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+  padding-bottom: 63px;
 }
 .offer .image .semiopacity {	background-color: rgba(53, 48, 45, 0.8);}
 
@@ -280,18 +310,20 @@ nav {
 /* FOOTER	*/
 
 footer {
-  height: 20px;
+  height: 60px;
 }
 
 .footer-bg {
   background-color: #35302d;
-  height: 20px;
+  height: 60px;
+  color: #fff;
 }
 
 .footer-bg a {
   font-family: "Roboto Slab", serif;
   color: #857771;
   font-size: 12px;
+  padding-top: 30px;
 }
 
 /* END FOOTER	*/

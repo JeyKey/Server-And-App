@@ -11,14 +11,14 @@
 
       <ul class="234">
         <li ng-repeat="article in CatList | searchFor:searchString" class="thumbnail">
-		{{article.id}} / {{article.category_id}} / 
+		{{article.id}} / {{article.category_id}} /
           <a href="#/article/{{article.id}}">{{article.name}}</a>
           <p>{{article.callories}}</p>
-		  
+
         </li>
       </ul>
 {{data}}
-	  
+
     </div>
   </div>
 </div>

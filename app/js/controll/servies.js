@@ -1,4 +1,6 @@
-menucat.filter('searchFor', function(){
+'use strict';
+
+AppCtrl.filter('searchFor', function(){
 
 	// All filters must return a function. The first parameter
 	// is the data that is to be filtered, and the second is an
