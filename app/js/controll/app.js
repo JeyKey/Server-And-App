@@ -3,6 +3,7 @@
 var AppCtrl = angular.module('AppCtrl', [
  'ngRoute',
  'ArticleControllers',
+ 'ngImgCache',
  'AuhtControllers',
  'NavControllers',
  'FooterControllers',
