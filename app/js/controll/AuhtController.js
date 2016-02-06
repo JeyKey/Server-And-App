@@ -3,11 +3,7 @@
 // AuhtRestFull API: Модуль Авторизации
 //
 var AuhtControllers = angular.module('AuhtControllers', [ 'LocalStorageModule']);
-AuhtControllers.config(function(localStorageServiceProvider){
-  localStorageServiceProvider.setPrefix('Auht');
-  // localStorageServiceProvider.setStorageCookieDomain('example.com');
-  // localStorageServiceProvider.setStorageType('sessionStorage');
-});
+
 //
 // AuhtRestFull API: Контроллер Авторизации
 //
@@ -21,6 +17,8 @@ AuhtControllers.controller('Auht', ['$scope', '$routeParams', '$http', '$locatio
 // Авторизация: проверка соедиения с сервером
     $http.jsonp('http://localhost/?callback=JSON_CALLBACK').
       success(function(data) {
+       localStorageService.clearAll();
+
         $scope.data = "Сервер доступен";
 
       }).error(function(data, status) {

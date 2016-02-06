@@ -2,12 +2,18 @@
 
 var AppCtrl = angular.module('AppCtrl', [
  'ngRoute',
- 'ngImageCache',
  'ArticleControllers',
  'AuhtControllers',
- 'CatControllers',
- 'FooterControllers'
+ 'NavControllers',
+ 'FooterControllers',
+ 'OfferControllers'
 ]);
+
+AppCtrl.config(function(localStorageServiceProvider){
+  localStorageServiceProvider.setPrefix('AppCtrl');
+  // localStorageServiceProvider.setStorageCookieDomain('example.com');
+  // localStorageServiceProvider.setStorageType('sessionStorage');
+});
 
 AppCtrl.run(function($rootScope, $location) {
   $rootScope.$on('$routeChangeSuccess', function() {
@@ -15,9 +21,8 @@ AppCtrl.run(function($rootScope, $location) {
   });
 });
 
-  AppCtrl.config(['$routeProvider', 'ImageCacheProvider',
-  function($routeProvider, ImageCacheProvider) {
-	ImageCacheProvider.setStorage(window.localStorage);
+  AppCtrl.config(['$routeProvider',
+  function($routeProvider) {
 
     $routeProvider.
         when('/', {
