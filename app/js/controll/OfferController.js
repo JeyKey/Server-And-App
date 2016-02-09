@@ -15,6 +15,7 @@ function($scope, $http, localStorageService) {
           $scope.Offers = data;
            localStorageService.set('offer',data);
         });
-    }
+    }else{
       $scope.Offers = offer;
+    }
 }]);

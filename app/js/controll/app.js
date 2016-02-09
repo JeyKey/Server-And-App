@@ -3,11 +3,11 @@
 var AppCtrl = angular.module('AppCtrl', [
  'ngRoute',
  'ArticleControllers',
- 'ngImgCache',
  'AuhtControllers',
  'NavControllers',
  'FooterControllers',
- 'OfferControllers'
+ 'OfferControllers',
+ 'BaskedControllers'
 ]);
 
 AppCtrl.config(function(localStorageServiceProvider){

@@ -8,7 +8,7 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" type="text/css">
 <link href="css/slick.css" rel="stylesheet" type="text/css">
-
+<link href="css/angular-virtual-keyboard.css" rel="stylesheet" type="text/css">
 <!-- FONTS -->
 </head>
 <body>
@@ -16,7 +16,7 @@
   <div id="gray" ><div id="blur">
   <header ng-if="showSection" ng-include="'tpl/views/header.html'" ></header>
 
-  <div id="o-wrapper"  class="content" ng-view></div>
+  <section id="o-wrapper"  class="content" ng-view></section>
 
   <footer ng-if="showSection" class="navbar-fixed-bottom" ng-include="'tpl/views/footer.html'" ></footer>
 
@@ -28,7 +28,7 @@
 <div id="mask" class="mask"></div>
 <!-- JS -->
 <script src="js/lib/jquery-1.11.3.min.js"></script>
-<script src="js/lib/menu-basket.js"></script>
+
 
 <!-- Angular JS Lib-->
 <script src="js/lib/angular.min.js"></script>
@@ -38,6 +38,7 @@
 <script src="js/lib/ngImgCache.js"></script>
 <script src="js/lib/slick.min.js"></script>
 <script src="js/lib/slick.js"></script>
+
 <!-- Angular JS Lib QR-->
 <!-- <script src="js/lib/jsqrcode-combined.min.js"></script>
 <script src="js/controll/qr-scanner.js"></script> -->
@@ -49,8 +50,9 @@
 <script src="js/controll/OfferController.js"></script>
 <script src="js/controll/ArticleController.js"></script>
 
+
 <!-- Angular JS Servies-->
 <script src="js/Servies/Servies.js"></script>
-
+<script src="js/Servies/Session.js"></script>
 </body>
 </html>

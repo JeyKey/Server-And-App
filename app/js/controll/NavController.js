@@ -15,8 +15,7 @@ NavControllers.controller('GetNavCtrl', ['$scope', '$http', 'localStorageService
                $scope.nav = data;
                localStorageService.set('nav',data);
              });
-      }
-
+      }else{
       $scope.nav = nav;
-
+      }
 }]);

@@ -8,7 +8,7 @@
           </div>
 
           <div class="col-md-8 atm">
-			         <img class="logo" ng-cache ng-src="http://localhost/tpl/img/logo.png">
+			         <img class="logo" ng-src="http://localhost/tpl/img/logo.png">
           </div>
 
           <div class="col-md-2 atm atm_right">
@@ -24,9 +24,10 @@
           <div class="row">
             <div class="frame">
               <ul class="nav navbar-nav slide">
-                <li ng-repeat="n in nav" ><a class="hvr-s" href="#/category/{{n.id}}"><img ng-cache ng-src="{{n.icon}}"> <p>{{n.title}}</p></a></li>
+                <li ng-repeat="n in nav" ><a class="hvr-s" href="#/category/{{n.id}}"><img ng-src="{{n.icon}}"> <p>{{n.title}}</p></a></li>
               </ul>
             </div>
           </div>
       </div>
     </nav>
+<script src="js/lib/menu-basket.js"></script>
