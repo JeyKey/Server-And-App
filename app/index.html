@@ -11,9 +11,9 @@
 <link href="css/angular-virtual-keyboard.css" rel="stylesheet" type="text/css">
 <!-- FONTS -->
 </head>
-<body>
+<body >
 
-  <div id="gray" ><div id="blur">
+  <div id="blur" class="ng-class:showCartBlur">
   <header ng-if="showSection" ng-include="'tpl/views/header.html'" ></header>
 
   <section id="o-wrapper"  class="content" ng-view></section>
@@ -21,11 +21,11 @@
   <footer ng-if="showSection" class="navbar-fixed-bottom" ng-include="'tpl/views/footer.html'" ></footer>
 
 </div>
-</div>
 
-<div id="menu-basket" class="menu menu-basket" ng-include="'tpl/views/basket.html'"></div>
 
-<div id="mask" class="mask"></div>
+<div id="menu-basket"  ng-if="showCart" class="menu menu-basket is-active" ng-include="'tpl/views/basket.html'" ></div>
+<div id="mask"  ng-if="showCart" ng-click="$root.exitCart()" class="mask is-active"></div>
+
 <!-- JS -->
 <script src="js/lib/jquery-1.11.3.min.js"></script>
 
@@ -34,14 +34,17 @@
 <script src="js/lib/angular.min.js"></script>
 <script src="js/lib/angular-local-storage.min.js"></script>
 <script src="js/lib/angular-route.min.js"></script>
+<script src="js/lib/angular-resource.min.js"></script>
 <script src="js/lib/angular-touch.min.js"></script>
 <script src="js/lib/ngImgCache.js"></script>
 <script src="js/lib/slick.min.js"></script>
 <script src="js/lib/slick.js"></script>
+<script src="js/lib/ngCart.js"></script>
 
 <!-- Angular JS Lib QR-->
 <!-- <script src="js/lib/jsqrcode-combined.min.js"></script>
 <script src="js/controll/qr-scanner.js"></script> -->
+
 <!-- Angular JS Controller-->
 <script src="js/controll/app.js"></script>
 <script src="js/controll/AuhtController.js"></script>
@@ -49,10 +52,10 @@
 <script src="js/controll/FooterController.js"></script>
 <script src="js/controll/OfferController.js"></script>
 <script src="js/controll/ArticleController.js"></script>
-
+<script src="js/controll/BaskedController.js"></script>
 
 <!-- Angular JS Servies-->
-<script src="js/Servies/Servies.js"></script>
-<script src="js/Servies/Session.js"></script>
+<script src="js/Servies/SearchServies.js"></script>
+<script src="js/Servies/ConfigServies.js"></script>
 </body>
 </html>

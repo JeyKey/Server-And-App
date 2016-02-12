@@ -12,14 +12,10 @@ $app = new \Slim\App;
 
 $app->get('/', function ($request, $response) {
     $app = $response -> withStatus (200)
-					 -> withHeader('Content-Type','application/json');
+					 -> withHeader('Content-Type','application/json')
+					 -> withHeader('Access-Control-Allow-Origin','*');
 
-		$callback = $request->getParam('callback');
-	if ($callback) {
-		echo $_GET['callback'] . '('.json_encode($result, JSON_UNESCAPED_UNICODE).')';
-	}else{
-		echo json_encode($result, JSON_UNESCAPED_UNICODE);
-	}
+	echo json_encode($result, JSON_UNESCAPED_UNICODE);
 	return $app;
 });
 
@@ -35,39 +31,69 @@ $app->get('/auht', function($request, $response) use( $db){
 	$secret = $request->getParam('token');
 	$reqdb = $db->app_auht()->where('pin', $code);
 	$data = $reqdb->fetch();
-	$result = array();
+	
 	$token = $secret == $data['token'];
 
 	if ($token && $data) {
-
+		
+	$result = array();
+	
 		$app = $response -> withStatus (200)
-						 -> withHeader('Content-Type','application/json');
+						 -> withHeader('Content-Type','application/json')
+						 -> withHeader('Access-Control-Allow-Origin','*');
 
 	   foreach ($db->app_user() as $login) {
+		  $uid = $login['uid'];
+		   
         $result[]  = array(
             'uid' => $login['uid'],
             'name' => $login['name']
         );
     };
 
-		// SetCookie("uid", $login['uid'] ,time()+3600);
-
 	}else{
 
-		return $app = $response -> withStatus (200);
+		return $app = $response -> withStatus (400)
+								-> withHeader('Access-Control-Allow-Origin','*');
 
 	}
 
-	$callback = $request->getParam('callback');
-	if ($callback) {
-		echo $_GET['callback'] . '('.json_encode($result, JSON_UNESCAPED_UNICODE).')';
-	}else{
-		echo json_encode($result, JSON_UNESCAPED_UNICODE);
-	}
-
+	echo json_encode($result, JSON_UNESCAPED_UNICODE);
 	return $app;
 
 });
+
+
+// Сессия
+$app->get('/session', function($request, $response) use ($db) {
+
+	$uid = $request->getParam('uid');
+	$array1 = array("status" => "1",);
+	$array0 = array("status" => "0",);
+
+	$reqdb = $db->app_user()->where(uid, $uid)->update($array1);
+	
+		if ($reqdb) {
+			
+		$app = $response -> withStatus (200)
+						 -> withHeader('Content-Type','application/json');
+						 
+	}else{
+		return $app = $response -> withStatus (400);
+	}
+	
+		$callback = $request->getParam('callback');
+	if ($callback) {
+		echo $_GET['callback'] . '('.json_encode($api, JSON_UNESCAPED_UNICODE).')';
+	}else{
+		echo json_encode($api, JSON_UNESCAPED_UNICODE);
+	}
+	return $json= $response->withHeader('Content-Type','application/json');
+
+});
+
+
+
 
 // Показать спец. предложения
 $app->get('/offer', function($request, $response) use( $db){

@@ -2,72 +2,55 @@
 //
 // AuhtRestFull API: Модуль Авторизации
 //
-var AuhtControllers = angular.module('AuhtControllers', [ 'LocalStorageModule']);
+var AuhtControllers = angular.module('AuhtControllers', [
+  'LocalStorageModule',
+  'AppConfig'
+]);
 
 //
 // AuhtRestFull API: Контроллер Авторизации
 //
-AuhtControllers.controller('Auht', ['$scope', '$routeParams', '$http', '$location', '$timeout', 'localStorageService', '$interval',
-  function($scope, $routeParams, $http, $location, $timeout, localStorageService, $interval) {
+AuhtControllers.controller('Auht', ['$scope', '$routeParams', '$http', '$location', '$timeout', 'localStorageService', '$interval', 'Config',
+  function($scope, $routeParams, $http, $location, $timeout, localStorageService, $interval, Config) {
 
 
     $scope.localStorageUid = localStorageService.get('uid');
     $scope.localStorageName = localStorageService.get('name');
 
-    $http.jsonp('http://localhost/?callback=JSON_CALLBACK').
-      success(function(data) {
-
+    var AuhtPin = localStorageService.get('status')
+      if (AuhtPin == 200) {
         $scope.server = "Сервер доступен";
         $scope.status = "online";
 
-      }).error(function(data, status) {
+      }else{
         $scope.server = "Нет соединения с сервером";
         $scope.status = "offline";
         $scope.error = "Ошибка! Неудается подключиться к серверу.";
 
-      });
+      };
 
-    $interval(function() {
-        $http.jsonp('http://localhost/?callback=JSON_CALLBACK').
-          success(function(data) {
 
-            $scope.server = "Сервер доступен";
-            $scope.status = "online";
-            $scope.error = "";
-
-          }).error(function(data, status) {
-            $scope.server = "Нет соединения с сервером";
-            $scope.status = "offline";
-            $scope.error = "Ошибка! Неудается подключиться к серверу.";
-
-          });
-    }, 30000);
 
 // Авторизация: проверка Pin, выдача AppUsers
-    $scope.getUid = function() {
+  $scope.getUid = function(PinValue) {
       $scope.error = "";
-      $timeout(function() {
-      $http.jsonp('http://localhost/auht?pin=' + $scope.pin + '&token=a3ca5cf04464775a3ca0e1d2944d5f43875b2507&callback=JSON_CALLBACK').
-      success(function(data) {
-        
-        localStorageService.clearAll();
 
-        $timeout(function() {
-          $scope.hidden = "hidden";
-          $scope.uidList = data;
-        }, 300);
+      var AuhtPin = Config.query({pin:PinValue},
+        function success(status) {
+                localStorageService.clearAll();
+          $timeout(function() {
+                 $scope.hidden = "hidden";
+                 $scope.uidList = AuhtPin;
 
-      }). error(function(data, status) {
-        var pin = $scope.pin;
-          if (pin == null) {
-            $scope.error = "Ошибка! Введите пин-код.";
-
+          }, 300);
+        },
+        function err(status) {
+          if (status.status == 400) {
+            $scope.error =  "Ошибка! Неверный пин-код.";
           }else{
-            $scope.error = data || "Ошибка! Неверный пин-код.";
-          }
-
-      });
-    }, 300);
+            $scope.error =  "Ошибка! Сервер недоступен.";
+          };
+        });
   };
 
 // Авторизация: Цифровая клавиатура
@@ -97,8 +80,16 @@ AuhtControllers.controller('Auht', ['$scope', '$routeParams', '$http', '$locatio
 
 // Авторизация: Добавление Данных пользователя + Редирект в основу приложения
   $scope.getApp = function(uid, name) {
+
       localStorageService.set('uid',uid);
       localStorageService.set('name',name);
-      $location.path('/offer');
+      $timeout(function() {
+             $location.path('/offer');
+      }, 300);
+
+
+
+
+
   };
 }]);

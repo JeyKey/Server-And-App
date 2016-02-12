@@ -1,21 +1,19 @@
 'use strict';
 
 var ArticleControllers = angular.module('ArticleControllers', [
-'slick'
+'slick',
+'LocalStorageModule'
 ]);
-
-// Caching the river...
-ArticleControllers.factory('myCache', function($cacheFactory) {
- return $cacheFactory('myData');
-});
 
 
 	// Показать одно блюдо
-ArticleControllers.controller('ArticleDetailCtrl', ['$scope', '$routeParams', '$http',
-  function($scope, $routeParams, $http) {
-    $http.jsonp('http://localhost/article/' + $routeParams.ArticleId + '?callback=JSON_CALLBACK').success(function(data) {
-      $scope.Article = data;
+ArticleControllers.controller('ArticleDetailCtrl', ['$scope', '$routeParams', '$http', 'localStorageService',
+  function($scope, $routeParams, $http, localStorageService) {
+    $http.jsonp('http://localhost/article/' + $routeParams.ArticleId + '?callback=JSON_CALLBACK').
+    success(function(data) {
+      $scope.Article = angular.fromJson(data[0]);
    });
+
 
 }]);
 

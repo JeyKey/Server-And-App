@@ -76,17 +76,3 @@
   window.Menu = Menu;
 
 })(window);
-
-var slideRight = new Menu({
-  wrapper: '#o-wrapper',
-  type: 'slide-right',
-  menuOpenerClass: '.btn_basket',
-  maskId: '#mask'
-});
-
-var slideRightBtn = document.querySelector('#btn_basket_right');
-
-slideRightBtn.addEventListener('click', function(e) {
-  e.preventDefault;
-  slideRight.open();
-});

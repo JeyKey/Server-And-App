@@ -1,11 +1,36 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2" ng-repeat="Articl in Article">
-{{Articl.id}} / {{Articl.category_id}} / {{Articl.name}} / {{Articl.times}}
-/ {{Articl.callories}} / {{Articl.likes}} / {{Articl.ingredient}} / {{Articl.price}}
- / {{Articl.old_price}} / {{Articl.id_comb}}
-	{{Articl.message}}
+    <div class="col-md-2" >
+{{Article.id}} / {{Article.category_id}} / {{Article.name}} / {{Article.times}}
+/ {{Article.callories}} / {{Article.likes}} / {{Article.ingredient}} / {{Article.price}}
+ / {{Article.old_price}} / {{Article.id_comb}}
+	{{Article.message}}
     </div>
+
+
+<ngcart-addtocart id="{{Article.id}}" name="{{Article.name}}" cat="{{Article.category_id}}" price="{{Article.price}}" quantity="1" quantity-max="10">Заказать</ngcart-addtocart>
+
+
+<script type="text/ng-template" id="template/ngCart/addtocart.html"><div ng-hide="attrs.id">
+    <a class="btn btn-lg btn-primary" ng-disabled="true" ng-transclude></a>
+
+</div>
+<div ng-show="attrs.id">
+    <div>
+        <span ng-show="quantityMax">
+            <select name="quantity" id="quantity" ng-model="q"
+                    ng-options=" v for v in qtyOpt"></select>
+        </span>
+        <a class="btn btn btn-default"
+           ng-click="ngCart.addItem(id, name, cat, price, q, data)"
+           ng-transclude></a>
+    </div>
+    <mark  ng-show="inCart()">
+        Это блюдо уже в вашей корзине. <a ng-click="ngCart.removeItemById(id)" style="cursor: pointer;">Удалить</a>
+    </mark>
+</div>
+</script>
+
 
   </div>
 </div>

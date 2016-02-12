@@ -7,7 +7,8 @@ var AppCtrl = angular.module('AppCtrl', [
  'NavControllers',
  'FooterControllers',
  'OfferControllers',
- 'BaskedControllers'
+ 'AppConfig',
+ 'ngCart'
 ]);
 
 AppCtrl.config(function(localStorageServiceProvider){
@@ -16,10 +17,21 @@ AppCtrl.config(function(localStorageServiceProvider){
   // localStorageServiceProvider.setStorageType('sessionStorage');
 });
 
-AppCtrl.run(function($rootScope, $location) {
+AppCtrl.run(function($rootScope, $location, $interval, localStorageService, Config) {
   $rootScope.$on('$routeChangeSuccess', function() {
       $rootScope.showSection = $location.path() !== "/";
   });
+
+  $interval(function() {
+    var AuhtPin = Config.get(
+      function success(status) {
+        localStorageService.set('status',  status.status);
+      },
+      function err(status) {
+        localStorageService.set('status',  status.status);
+      });
+ }, 300);
+
 });
 
   AppCtrl.config(['$routeProvider',
@@ -41,5 +53,8 @@ AppCtrl.run(function($rootScope, $location) {
         when('/article/:ArticleId', {
           templateUrl: 'tpl/ArticleDetail.html',
           controller: 'ArticleDetailCtrl'
+        }).
+        otherwise({
+        redirectTo: '/'
         });
   }]);
