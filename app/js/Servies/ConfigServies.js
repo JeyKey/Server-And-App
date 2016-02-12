@@ -1,7 +1,6 @@
 'use strict';
 
 var AppConfig = angular.module('AppConfig', ['ngResource']);
-
     AppConfig.factory('Config', ['$resource', function($resource){
 
       var UrlValue = "http://localhost/";
@@ -9,6 +8,16 @@ var AppConfig = angular.module('AppConfig', ['ngResource']);
 
             return  $resource(UrlValue+':url', {}, {
                     query: {method:'GET', params:{url:'auht', token:TokenValue}, isArray:true},
+                    get: {method:'GET', params:{}, isArray:true}
+                });
+    }]);
+
+var Session = angular.module('Session', ['ngResource']);
+    Session.factory('Session', ['$resource', function($resource){
+
+      var UrlValue = "http://localhost/";
+
+            return  $resource(UrlValue+':url', {}, {
                     get: {method:'GET', params:{}, isArray:true}
                 });
     }]);

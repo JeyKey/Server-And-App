@@ -4,30 +4,35 @@
 //
 var AuhtControllers = angular.module('AuhtControllers', [
   'LocalStorageModule',
-  'AppConfig'
+ 'Session'
 ]);
 
 //
 // AuhtRestFull API: Контроллер Авторизации
 //
-AuhtControllers.controller('Auht', ['$scope', '$routeParams', '$http', '$location', '$timeout', 'localStorageService', '$interval', 'Config',
-  function($scope, $routeParams, $http, $location, $timeout, localStorageService, $interval, Config) {
+AuhtControllers.controller('Auht', ['$rootScope', '$scope', '$routeParams', '$http', '$location', '$timeout', 'localStorageService', '$interval', 'Config', 'Session',
+  function($rootScope, $scope, $routeParams, $http, $location, $timeout, localStorageService, $interval, Config, Session) {
 
 
     $scope.localStorageUid = localStorageService.get('uid');
     $scope.localStorageName = localStorageService.get('name');
 
-    var AuhtPin = localStorageService.get('status')
-      if (AuhtPin == 200) {
-        $scope.server = "Сервер доступен";
-        $scope.status = "online";
+    $interval(function(){
+        var Session = Session.get(
+        function success() {
+          $scope.server = "Сервер доступен";
+          $scope.status = "online";
+        },
+        function err() {
+          $timeout(function() {
+                 $location.path('/');
 
-      }else{
-        $scope.server = "Нет соединения с сервером";
-        $scope.status = "offline";
-        $scope.error = "Ошибка! Неудается подключиться к серверу.";
+          }, 300);
+          $scope.status = "offline";
+          $scope.error = "Ошибка! Неудается подключиться к серверу.";
 
-      };
+        });
+      }, 3000);
 
 
 
@@ -48,7 +53,7 @@ AuhtControllers.controller('Auht', ['$scope', '$routeParams', '$http', '$locatio
           if (status.status == 400) {
             $scope.error =  "Ошибка! Неверный пин-код.";
           }else{
-            $scope.error =  "Ошибка! Сервер недоступен.";
+            $scope.error =  "Ошибка! Неудается подключиться к серверу.";
           };
         });
   };

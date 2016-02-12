@@ -17,20 +17,10 @@ AppCtrl.config(function(localStorageServiceProvider){
   // localStorageServiceProvider.setStorageType('sessionStorage');
 });
 
-AppCtrl.run(function($rootScope, $location, $interval, localStorageService, Config) {
+AppCtrl.run(function($rootScope, $location, localStorageService) {
   $rootScope.$on('$routeChangeSuccess', function() {
       $rootScope.showSection = $location.path() !== "/";
   });
-
-  $interval(function() {
-    var AuhtPin = Config.get(
-      function success(status) {
-        localStorageService.set('status',  status.status);
-      },
-      function err(status) {
-        localStorageService.set('status',  status.status);
-      });
- }, 300);
 
 });
 
