@@ -196,11 +196,18 @@ $app->get('/category/{id}', function($request, $response, $args) use( $db){
 $app->get('/article/{id}', function($request, $response, $args) use ($db) {
 
  $reqdb = $db->app_articles()->where('id', $args[id]);
+ 
 	$api = array();
     if($data = $reqdb->fetch()){
+		
+	
+		
+		foreach ($db->app_category()->where('id', $data['category_id']) as $datacat) {
         $api[]  = array(
             'id' => $data['id'],
+			'image' => $data['image'],
             'category_id' => $data['category_id'],
+			'category' => $datacat['title'],
             'name' => $data['name'],
             'times' => $data['times'],
 			'callories' => $data['callories'],
@@ -210,7 +217,7 @@ $app->get('/article/{id}', function($request, $response, $args) use ($db) {
 			'old_price' => $data['old_price'],
             'id_comb' => $data['id_comb']
         );
-    }
+    }}
     else{
         $api[]  = array(
             'status' => "error",

@@ -11,13 +11,3 @@ var AppConfig = angular.module('AppConfig', ['ngResource']);
                     get: {method:'GET', params:{}, isArray:true}
                 });
     }]);
-
-var Session = angular.module('Session', ['ngResource']);
-    Session.factory('Session', ['$resource', function($resource){
-
-      var UrlValue = "http://localhost/";
-
-            return  $resource(UrlValue+':url', {}, {
-                    get: {method:'GET', params:{}, isArray:true}
-                });
-    }]);

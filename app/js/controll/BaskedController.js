@@ -6,8 +6,8 @@
 //
 // AuhtRestFull API: Контроллер Авторизации
 //
-AppCtrl.controller('BaskedController', ['$rootScope','$scope', '$http', 'ngCart', 'localStorageService', 'ngCartItem', 'store', '$timeout', 'Session',
-  function($rootScope, $scope, $http, ngCart, localStorageService, ngCartItem, store, $timeout, $location, Session) {
+AppCtrl.controller('BaskedController', ['$rootScope','$scope', '$http', 'ngCart', 'localStorageService', 'ngCartItem', 'store', '$timeout',
+  function($rootScope, $scope, $http, ngCart, localStorageService, ngCartItem, store, $timeout, $location) {
     var uid = localStorageService.get('uid');
 
     ngCart.setTaxRate(10);

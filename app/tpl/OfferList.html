@@ -10,7 +10,7 @@
 			<hr><p>{{Offer.text}}</p>
 					<div class="price"><small>{{Offer.old_price}} тг.</small><br> {{Offer.price}} <sup>тг.</sup></div>
 					<ngcart-addtocart id="{{Offer.id}}" name="{{Offer.name}}" cat="{{Article.catid}}" price="{{Offer.price}}" quantity="1" quantity-max="20">Заказать</ngcart-addtocart>
-
+						{{$last ? '' : ($index==Users.length-2) ? ' and ' : ', '}}
 			</div>
 		</div>
 

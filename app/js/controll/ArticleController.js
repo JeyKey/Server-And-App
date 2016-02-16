@@ -7,8 +7,10 @@ var ArticleControllers = angular.module('ArticleControllers', [
 
 
 	// Показать одно блюдо
-ArticleControllers.controller('ArticleDetailCtrl', ['$scope', '$routeParams', '$http', 'localStorageService',
-  function($scope, $routeParams, $http, localStorageService) {
+ArticleControllers.controller('ArticleDetailCtrl', ['$rootScope', '$scope', '$routeParams', '$http', 'localStorageService', '$timeout',
+  function($rootScope, $scope, $routeParams, $http, localStorageService, $timeout) {
+
+
     $http.jsonp('http://localhost/article/' + $routeParams.ArticleId + '?callback=JSON_CALLBACK').
     success(function(data) {
       $scope.Article = angular.fromJson(data[0]);
@@ -19,12 +21,14 @@ ArticleControllers.controller('ArticleDetailCtrl', ['$scope', '$routeParams', '$
 
 
 	// Показать все блюда категории
-ArticleControllers.controller('CatListCtrl', ['$scope', '$routeParams', '$http',
-  function($scope, $routeParams, $http) {
+ArticleControllers.controller('CatListCtrl', ['$rootScope', '$scope', '$routeParams', '$http', '$timeout',
+  function($rootScope, $scope, $routeParams, $http, $timeout) {
+
     $http.jsonp('http://localhost/category/' + $routeParams.CatId + '?callback=JSON_CALLBACK').success(function(data) {
       $scope.CatList = data;
    }).
    error(function(data, status) {
         $scope.data = data || "Эта категория еще не заполнена";
     });
+
 }]);

@@ -18,6 +18,10 @@
 
   <section id="o-wrapper"  class="content" ng-view></section>
 
+  <div ng-if="showSection" class="goback">
+    <a href="" ng-click="$root.doTheBack()"><span></span></a>
+  </div>
+
   <footer ng-if="showSection" class="navbar-fixed-bottom" ng-include="'tpl/views/footer.html'" ></footer>
 
 </div>
@@ -36,7 +40,9 @@
 <script src="js/lib/angular-route.min.js"></script>
 <script src="js/lib/angular-resource.min.js"></script>
 <script src="js/lib/angular-touch.min.js"></script>
-<script src="js/lib/ngImgCache.js"></script>
+
+
+
 <script src="js/lib/slick.min.js"></script>
 <script src="js/lib/slick.js"></script>
 <script src="js/lib/ngCart.js"></script>

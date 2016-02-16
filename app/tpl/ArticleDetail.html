@@ -1,36 +1,112 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2" >
-{{Article.id}} / {{Article.category_id}} / {{Article.name}} / {{Article.times}}
-/ {{Article.callories}} / {{Article.likes}} / {{Article.ingredient}} / {{Article.price}}
- / {{Article.old_price}} / {{Article.id_comb}}
-	{{Article.message}}
+    <div class="detail">
+
+      <div class="col-md-6">
+        <div class="row">
+          <div class="image" style="background-image: url( {{Article.image}} )">
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row">
+          <div class="content">
+          <span class="label label-{{Article.category_id}}">{{Article.category}}</span>
+              <div class="inform">
+                <span class="info time">{{Article.times}}мин.</span>/
+                <span class="info callories">{{Article.callories}}ккал.</span>/
+                <span class="info like">{{Article.likes}}</span>
+              </div>
+              <h1>{{Article.name}}</h1>
+            <div class="table-responsive">
+              <table class="table table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Ингредиенты</th>
+                    <th></th>
+                    <th>320 г.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="active">
+                    <td>Филе куриной грудки</td>
+                    <td></td>
+                    <td>80 г.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Масло оливковое</td>
+                    <td></td>
+                    <td>15 г.</td>
+                  </tr>
+
+                  <tr class="active">
+                    <td>Чеснок</td>
+                    <td></th>
+                    <td>112 г.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Белый хлеб</td>
+                    <td></td>
+                    <td>12 г.</td>
+                  </tr>
+
+                  <tr class="active">
+                    <td>Соус ворчестерский</td>
+                    <td></td>
+                    <td>10 шт.</td>
+                  </tr>
+                </tbody>
+                </table>
+              </div>
+                <p>белый хлеб, анчоусы, салат романо, сыр пармезан, горчица,
+                соус ворчестерский, лимоны, яйцо куриное, яичный белок.</p>
+                <hr/>
+                <div class="col-md-6">
+                  <div class="price"><small>{{Article.old_price}} тг.</small><br> {{Article.price}} <sup>тг.</sup></div>
+                </div>
+                <div class="col-md-6">
+                  <ngcart-addtocart id="{{Article.id}}"
+                                    name="{{Article.name}}"
+                                    cat="{{Article.category_id}}"
+                                    price="{{Article.price}}"
+                                    quantity="1" quantity-max="10">Заказать
+                  </ngcart-addtocart>
+                </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-
-<ngcart-addtocart id="{{Article.id}}" name="{{Article.name}}" cat="{{Article.category_id}}" price="{{Article.price}}" quantity="1" quantity-max="10">Заказать</ngcart-addtocart>
-
-
-<script type="text/ng-template" id="template/ngCart/addtocart.html"><div ng-hide="attrs.id">
-    <a class="btn btn-lg btn-primary" ng-disabled="true" ng-transclude></a>
-
-</div>
-<div ng-show="attrs.id">
-    <div>
-        <span ng-show="quantityMax">
-            <select name="quantity" id="quantity" ng-model="q"
-                    ng-options=" v for v in qtyOpt"></select>
-        </span>
-        <a class="btn btn btn-default"
-           ng-click="ngCart.addItem(id, name, cat, price, q, data)"
-           ng-transclude></a>
-    </div>
-    <mark  ng-show="inCart()">
-        Это блюдо уже в вашей корзине. <a ng-click="ngCart.removeItemById(id)" style="cursor: pointer;">Удалить</a>
-    </mark>
-</div>
-</script>
-
-
   </div>
 </div>
+
+
+<script type="text/ng-template" id="template/ngCart/addtocart.html">
+  <div ng-hide="attrs.id">
+
+  </div>
+
+  <div ng-show="attrs.id" class="add">
+    <mark  ng-show="inCart()">Это блюдо уже<br/>в вашей корзине.</mark>
+
+    <span ng-hide="inCart()" ng-show="quantityMax">
+      <span ng-click="q = q - 1" ng-init="count=0" class="down">–</span>
+        <select class="form-control" name="quantity" id="quantity" ng-model="q"
+                ng-options=" v for v in qtyOpt"></select>
+      <span ng-click="q = q + 1" ng-init="count=0" class="up">+</span>
+
+
+    </span>
+    <a ng-hide="inCart()" class="btn btn btn-order"
+       ng-click="ngCart.addItem(id, name, cat, price, q, data)"
+       ng-transclude>
+    </a>
+    <mark  ng-show="inCart()">
+      <a ng-click="ngCart.removeItemById(id)" class="btn btn btn-del">Удалить</a>
+    </mark>
+  </div>
+</script>

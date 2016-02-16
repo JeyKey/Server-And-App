@@ -3,22 +3,21 @@
 // AuhtRestFull API: Модуль Авторизации
 //
 var AuhtControllers = angular.module('AuhtControllers', [
-  'LocalStorageModule',
- 'Session'
+  'LocalStorageModule'
 ]);
 
 //
 // AuhtRestFull API: Контроллер Авторизации
 //
-AuhtControllers.controller('Auht', ['$rootScope', '$scope', '$routeParams', '$http', '$location', '$timeout', 'localStorageService', '$interval', 'Config', 'Session',
-  function($rootScope, $scope, $routeParams, $http, $location, $timeout, localStorageService, $interval, Config, Session) {
+AuhtControllers.controller('Auht', ['$rootScope', '$scope', '$routeParams', '$http', '$location', '$timeout', 'localStorageService', '$interval', 'Config',
+  function($rootScope, $scope, $routeParams, $http, $location, $timeout, localStorageService, $interval, Config) {
 
 
     $scope.localStorageUid = localStorageService.get('uid');
     $scope.localStorageName = localStorageService.get('name');
 
     $interval(function(){
-        var Session = Session.get(
+        var Session = Config.get(
         function success() {
           $scope.server = "Сервер доступен";
           $scope.status = "online";
