@@ -13,14 +13,34 @@ var AppCtrl = angular.module('AppCtrl', [
 
 AppCtrl.config(function(localStorageServiceProvider){
   localStorageServiceProvider.setPrefix('AppCtrl');
-  // localStorageServiceProvider.setStorageCookieDomain('example.com');
-  // localStorageServiceProvider.setStorageType('sessionStorage');
 });
 
-AppCtrl.run(function($rootScope, $location, localStorageService) {
+AppCtrl.run(function($rootScope, $location, localStorageService, Config) {
+
   $rootScope.$on('$routeChangeSuccess', function() {
       $rootScope.showSection = $location.path() !== "/";
   });
+
+  // localStorageService.clearAll();
+
+  var dataCat = Config.CategoryGet(
+    function success() {
+      localStorageService.set('nav', dataCat);
+  },function err() {
+      $rootScope.server = "Ошибка! Неудается загрузить категории.";
+  });
+
+  var dataOffer = Config.OfferGet(
+    function success() {
+      localStorageService.set('offer', dataOffer);
+  },function err() {
+      $rootScope.server = "Ошибка! Неудается загрузить предложения.";
+  });
+
+
+
+
+
 
 });
 
@@ -30,14 +50,14 @@ AppCtrl.run(function($rootScope, $location, localStorageService) {
     $routeProvider.
         when('/', {
           templateUrl: 'tpl/auht.html',
-		  controller: 'Auht'
+		      controller: 'Auht'
 		  }).
         when('/offer', {
           templateUrl: 'tpl/OfferList.html',
           controller: 'OfferListCtrl'
 		  }).
 		  when('/category/:CatId', {
-		  templateUrl: 'tpl/CatList.html',
+		      templateUrl: 'tpl/CatList.html',
           controller: 'CatListCtrl'
         }).
         when('/article/:ArticleId', {
@@ -45,6 +65,6 @@ AppCtrl.run(function($rootScope, $location, localStorageService) {
           controller: 'ArticleDetailCtrl'
         }).
         otherwise({
-        redirectTo: '/'
+
         });
   }]);

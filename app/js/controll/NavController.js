@@ -5,18 +5,20 @@
 var NavControllers = angular.module('NavControllers', ['LocalStorageModule']);
 
 // Показать категории
-NavControllers.controller('GetNavCtrl', ['$scope', '$http', 'localStorageService', 'Config',
-  function ($scope, $http, localStorageService, Config) {
-    var nav = localStorageService.get('nav');
+  NavControllers.controller('GetNavCtrl', ['$scope', 'localStorageService', '$location', 'Config',
+    function ($scope, localStorageService, $location, Config) {
 
+      var data = localStorageService.get('nav');
 
-    if (nav == null) {
-      $http.jsonp('http://localhost/category?callback=JSON_CALLBACK').
-           success(function(data) {
-               $scope.nav = data;
-               localStorageService.set('nav',data);
-             });
+      if (data == null) {
+        $location.path('/');
+        $scope.server = "Ошибка! Неудается загрузить категории.";
       }else{
-      $scope.nav = nav;
+        $scope.getdata = data;
       }
-}]);
+
+
+  
+
+
+  }]);

@@ -5,17 +5,16 @@
 var OfferControllers = angular.module('OfferControllers', ['LocalStorageModule']);
 
 // Показать спец. предложения
-OfferControllers.controller('OfferListCtrl', ['$scope', '$http', 'localStorageService',
-function($scope, $http, localStorageService) {
-  var offer = localStorageService.get('offer');
+  OfferControllers.controller('OfferListCtrl', ['$scope', 'localStorageService', '$location', 'Config',
+    function ($scope, localStorageService, $location, Config) {
 
-    if (offer == null) {
-      $http.jsonp('http://localhost/offer?callback=JSON_CALLBACK').
-        success(function(data) {
-          $scope.Offers = data;
-           localStorageService.set('offer',data);
-        });
-    }else{
-      $scope.Offers = offer;
-    }
-}]);
+      var data = localStorageService.get('offer');
+
+      if (data == null) {
+        $location.path('/');
+        $scope.server = "Ошибка! Неудается загрузить предложения.";
+      }else{
+        $scope.getdata = data;
+      }
+
+  }]);

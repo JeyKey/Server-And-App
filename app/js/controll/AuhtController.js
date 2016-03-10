@@ -13,11 +13,8 @@ AuhtControllers.controller('Auht', ['$rootScope', '$scope', '$routeParams', '$ht
   function($rootScope, $scope, $routeParams, $http, $location, $timeout, localStorageService, $interval, Config) {
 
 
-    $scope.localStorageUid = localStorageService.get('uid');
-    $scope.localStorageName = localStorageService.get('name');
 
-    $interval(function(){
-        var Session = Config.get(
+    var Session = Config.AuhtGet(
         function success() {
           $scope.server = "Сервер доступен";
           $scope.status = "online";
@@ -28,25 +25,19 @@ AuhtControllers.controller('Auht', ['$rootScope', '$scope', '$routeParams', '$ht
 
           }, 300);
           $scope.status = "offline";
-          $scope.error = "Ошибка! Неудается подключиться к серверу.";
+          $scope.server = "Сервер не доступен.";
 
         });
-      }, 3000);
-
 
 
 // Авторизация: проверка Pin, выдача AppUsers
   $scope.getUid = function(PinValue) {
       $scope.error = "";
 
-      var AuhtPin = Config.query({pin:PinValue},
+      var AuhtPin = Config.AuhtPut({pin:PinValue},
         function success(status) {
-                localStorageService.clearAll();
-          $timeout(function() {
                  $scope.hidden = "hidden";
                  $scope.uidList = AuhtPin;
-
-          }, 300);
         },
         function err(status) {
           if (status.status == 400) {

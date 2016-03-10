@@ -28,11 +28,10 @@
 
 
 <div id="menu-basket"  ng-if="showCart" class="menu menu-basket is-active" ng-include="'tpl/views/basket.html'" ></div>
-<div id="mask"  ng-if="showCart" ng-click="$root.exitCart()" class="mask is-active"></div>
+<div id="mask"  ng-if="showMask" ng-click="$root.exitCart()" class="mask is-active"></div>
 
 <!-- JS -->
 <script src="js/lib/jquery-1.11.3.min.js"></script>
-
 
 <!-- Angular JS Lib-->
 <script src="js/lib/angular.min.js"></script>
@@ -40,16 +39,9 @@
 <script src="js/lib/angular-route.min.js"></script>
 <script src="js/lib/angular-resource.min.js"></script>
 <script src="js/lib/angular-touch.min.js"></script>
-
-
-
 <script src="js/lib/slick.min.js"></script>
 <script src="js/lib/slick.js"></script>
 <script src="js/lib/ngCart.js"></script>
-
-<!-- Angular JS Lib QR-->
-<!-- <script src="js/lib/jsqrcode-combined.min.js"></script>
-<script src="js/controll/qr-scanner.js"></script> -->
 
 <!-- Angular JS Controller-->
 <script src="js/controll/app.js"></script>

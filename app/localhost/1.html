@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>SmartMenu - Просмотр блюда</title>
+<!-- CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/hover.css" rel="stylesheet" type="text/css">
+<!-- FONTS -->
+</head>
+<body>
+
+ <form method="post" enctype="application/x-www-form-urlencoded" action="http://localhost/category/add">
+  <p><b>Добавить категорию</b></p>
+	<p><b>Название</b><input type="text" name="title" value="" placeholder="Название категории"></p>
+	<p><b>Иконка</b><input type="text" name="icon" value="" placeholder="Название иконки"></p>
+	<input type="submit" value="Добавить">
+ </form>
+
+ <form method="post" enctype="application/x-www-form-urlencoded" action="http://localhost/articles/add">
+  <p><b>Добавить блюдо</b></p>
+	<p><b>Категория</b><input type="text" name="category_id" value="" placeholder="Название категории"></p>
+	<p><b>Название</b><input type="text" name="name" value="" placeholder="Название блюда"></p>
+	<p><b>Время приготовления</b><input type="text" name="times" value="" placeholder="Время приготовления"></p>
+	<p><b>Каллории</b><input type="text" name="callories" value="" placeholder="Кол-во каллориев"></p>
+	<p><b>Ингридиенты</b><input type="text" name="ingredient" value="" placeholder="Ингридиенты"></p>
+	<p><b>Цена</b><input type="text" name="price" value="" placeholder="Цена"></p>
+	<p><b>Старая цена</b><input type="text" name="old_price" value="" placeholder="Старая цена"></p>
+	<input type="submit" value="Добавить">
+ </form>
+ 
+ 
+  <form method="post" enctype="application/x-www-form-urlencoded" action="http://localhost/offer/add">
+  <p><b>Добавить горячее предложение</b></p>
+	<p><b>Название</b><input type="text" name="name" value="" placeholder="Название"></p>
+	<p><b>Категория</b><input type="text" name="category" value="" placeholder="Категория"></p>
+	<p><b>Текст</b><input type="text" name="text" value="" placeholder="Текст"></p>
+	<p><b>Цена</b><input type="text" name="price" value="" placeholder="Цена"></p>
+	<p><b>Старая цена</b><input type="text" name="old_price" value="" placeholder="Старая цена"></p>
+	<input type="submit" value="Добавить">
+ </form>
+ 
+   <form method="post" enctype="application/x-www-form-urlencoded" action="http://localhost/auht/add">
+  <p><b>Добавить стол</b></p>
+	<p><b>Название</b><input type="text" name="name" value="" placeholder="Название столика"></p>
+	<input type="submit" value="Добавить">
+ </form>
+ 
+<!-- JS -->
+<script src="js/lib/jquery-1.11.3.min.js"></script>
+<script src="js/lib/bootstrap.js"></script>
+
+</body>
+</html>
