@@ -1,16 +1,16 @@
-<h1>Ваш заказ Евгений</h1><h5>12 апреля 16:28</h5>
+<h1>Ваш заказ Евгений</h1><h5>11 апреля 16:28</h5>
 
 
 <ngcart-cart></ngcart-cart>
 
-<ngcart-checkout service="http" settings="{ url:'/checkout' }"></ngcart-checkout>
-<ngcart-checkout service="log" ng-click="$root.exitCart()">log Checkout</ngcart-checkout>
+<ngcart-checkout service="http" settings="{ url:'http://localhost/api/v1/checkout' }">Отправить</ngcart-checkout>
+<ngcart-checkout service="log" ng-click="$root.exitCart()">log Отправить</ngcart-checkout>
 
   <button class="btn btn-primary" ng-click="$root.RemoveCart()" >Удалить</button>
 
 <script type="text/ng-template" id="template/ngCart/checkout.html">
   <div ng-if="service=='http' || service == 'log'">
-      <button class="btn btn-primary" ng-click="checkout()" ng-disabled="!ngCart.getTotalItems()" ng-transclude>Checkout</button>
+      <button class="btn btn-primary" ng-click="checkout()" ng-disabled="!ngCart.getTotalItems()" ng-transclude>Отправить</button>
   </div>
 </script>
 

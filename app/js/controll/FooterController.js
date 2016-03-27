@@ -18,5 +18,4 @@ var FooterControllers = angular.module('FooterControllers', ['LocalStorageModule
       $rootScope.doTheBack = function() {
         if($location.path() == "/offer") {} else { window.history.back(); };
       };
-
  }]);

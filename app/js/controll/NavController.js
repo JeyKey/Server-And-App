@@ -17,8 +17,4 @@ var NavControllers = angular.module('NavControllers', ['LocalStorageModule']);
         $scope.getdata = data;
       }
 
-
-  
-
-
   }]);
